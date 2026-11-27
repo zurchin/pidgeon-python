@@ -7,7 +7,7 @@ from typing import Any
 from langchain_core.tools import BaseTool
 from langchain_tests.unit_tests import ToolsUnitTests
 
-from langchain_pidgeon import (
+from langchain_zurchin import (
     AwaitMessage,
     GetMessage,
     GetReputation,

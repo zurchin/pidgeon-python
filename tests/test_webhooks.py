@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from pidgeon import PidgeonError, sign_webhook, verify_webhook
+from zurchin import PidgeonError, sign_webhook, verify_webhook
 
 SECRET = "whsec_test"
 BODY = json.dumps({"id": "evt_1", "type": "reputation.changed", "created": "x", "data": {"band": "new"}})

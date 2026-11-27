@@ -3,7 +3,7 @@ import json
 import httpx
 import pytest
 
-from pidgeon import (
+from zurchin import (
     Pidgeon,
     PidgeonError,
     agent_from_env,
@@ -32,7 +32,7 @@ def test_verify_forwards_the_request():
     )
     assert answer["verification_id"] == "ver_1"
     (request,) = seen
-    assert str(request.url) == "https://pidgeon.ai/v1/verify"
+    assert str(request.url) == "https://zurchin.com/v1/verify"
     assert request.headers["authorization"] == "Bearer pk_test"
     assert json.loads(request.content) == {
         "request": {"method": "POST", "url": "https://shop.example/signup",
@@ -531,7 +531,17 @@ def test_check_verdict_posts_the_verdict():
     )
     assert answer == {"valid": False, "reason": "used"}
     (request,) = seen
-    assert str(request.url) == "https://pidgeon.ai/v1/verify/verdict"
+    assert str(request.url) == "https://zurchin.com/v1/verify/verdict"
     assert json.loads(request.content) == {
         "verdict": "v.v.v", "origin": "https://shop.example", "ip": "203.0.113.7"
     }
+
+
+def test_settings_answer_to_both_names():
+    from zurchin import Pidgeon, PidgeonError, Zurchin, ZurchinError, env_setting
+
+    assert env_setting("API_KEY", {"PIDGEON_API_KEY": "p"}) == "p"
+    assert env_setting("API_KEY", {"PIDGEON_API_KEY": "p", "ZURCHIN_API_KEY": "z"}) == "z"
+    assert env_setting("API_KEY", {"PIDGEON_API_KEY": "p", "ZURCHIN_API_KEY": ""}) == "p"
+    assert env_setting("API_KEY", {}) is None
+    assert Zurchin is Pidgeon and ZurchinError is PidgeonError

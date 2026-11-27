@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.0
+
+- Pidgeon is now Zurchin: this version is published as `langchain-zurchin` (`import langchain_zurchin`), and the last
+  `langchain-zurchin` (1.2.0) depends on it, re-exports it and warns once.
+- The default host is `https://zurchin.com`. pidgeon.ai keeps answering the API for six months.
+- The source repository is `zurchin/pidgeon-python`.
+
+## 1.1.0
+
+- `ZURCHIN_API_KEY`, `ZURCHIN_BASE_URL` and `ZURCHIN_CONFIG_DIR` work beside the `PIDGEON_`
+  ones, and win when both are set.
+
 ## 1.0.1
 
 - The description, keywords and README lead with email inboxes for AI agents.

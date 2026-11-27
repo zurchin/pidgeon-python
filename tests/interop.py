@@ -15,7 +15,7 @@ prints the answer as JSON, so the TypeScript side can check the Python SDK.
 import json
 import sys
 
-import pidgeon
+import zurchin as pidgeon
 
 
 def api_tour(base_url: str, api_key: str, inbox_name: str) -> dict:

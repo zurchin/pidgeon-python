@@ -14,9 +14,9 @@ from typing import Any
 import httpx
 import pytest
 from langchain_core.messages import ToolMessage
-from pidgeon import Pidgeon
+from zurchin import Pidgeon
 
-from langchain_pidgeon import (
+from langchain_zurchin import (
     AwaitMessage,
     GetMessage,
     GetReputation,
@@ -28,7 +28,7 @@ from langchain_pidgeon import (
     SendMessage,
     VerifyRequest,
 )
-from langchain_pidgeon.tools import TOOLS
+from langchain_zurchin.tools import TOOLS
 
 ID = "0b5d1c1e-6a3f-4c55-9a8e-1f2d3c4b5a69"
 INBOX = "7f1c2d3e-0000-4000-8000-000000000001"

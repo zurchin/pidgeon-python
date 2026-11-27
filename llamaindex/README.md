@@ -1,4 +1,4 @@
-# llama-index-tools-pidgeon
+# llama-index-tools-zurchin
 
 Email for founders, teams and agents, as a LlamaIndex tool spec. Give each agent its
 own address on @pidgeon.email or your domain: with this spec it sends, waits for
@@ -9,7 +9,7 @@ Code written for 0.x (the old email API at `/api/v1`, with addresses and
 `identity_id`) keeps working on 0.1.4 until that API is retired.
 
 ```sh
-pip install llama-index-tools-pidgeon
+pip install llama-index-tools-zurchin
 ```
 
 Python 3.11 or later.
@@ -20,7 +20,7 @@ Python 3.11 or later.
 from llama_index.core.agent.workflow import FunctionAgent
 from llama_index.llms.anthropic import Anthropic
 
-from llama_index.tools.pidgeon import PidgeonToolSpec
+from llama_index.tools.zurchin import PidgeonToolSpec
 
 # Reads PIDGEON_API_KEY (and PIDGEON_BASE_URL, if set).
 tools = PidgeonToolSpec().to_tool_list()
@@ -55,7 +55,7 @@ user's agent their own: `PidgeonToolSpec(api_key=pod_key)`.
 | `register_agent`   | Register an agent and make its signing key, for Sign in with Pidgeon | yes    |
 | `get_reputation`   | The operator's reputation band, and what would raise it              |        |
 
-`WRITES` (from `llama_index.tools.pidgeon`) names the three that change
+`WRITES` (from `llama_index.tools.zurchin`) names the three that change
 something or reach people, to choose the calls a person approves first.
 
 A send can come back `held`: the account's reputation needs a person to

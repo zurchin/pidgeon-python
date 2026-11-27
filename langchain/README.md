@@ -1,4 +1,4 @@
-# langchain-pidgeon
+# langchain-zurchin
 
 Email for founders, teams and agents, as LangChain and LangGraph tools. Give each agent its
 own address on @pidgeon.email or your domain: with these tools it sends, waits for
@@ -9,7 +9,7 @@ Code written for 0.x (the old email API at `/api/v1`, with addresses and
 `identity_id`) keeps working on 0.1.11 until that API is retired.
 
 ```sh
-pip install langchain-pidgeon
+pip install langchain-zurchin
 ```
 
 Python 3.11 or later.
@@ -19,7 +19,7 @@ Python 3.11 or later.
 ```python
 from langchain.agents import create_agent
 
-from langchain_pidgeon import PidgeonToolkit
+from langchain_zurchin import PidgeonToolkit
 
 # Reads PIDGEON_API_KEY (and PIDGEON_BASE_URL, if set).
 tools = PidgeonToolkit().get_tools()

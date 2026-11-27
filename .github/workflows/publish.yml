@@ -1,13 +1,21 @@
 name: Publish
 
-# Tag-driven, one PyPI project per tag prefix:
+# Tag-driven, one PyPI project per tag prefix; `release.json` (written by
+# every sync) says which directory each prefix publishes. Before the switch to
+# Zurchin:
 #
 #   python-v2.0.0       pidgeon                     from the root
 #   langchain-v1.0.0    langchain-pidgeon           from langchain/
 #   llamaindex-v1.0.0   llama-index-tools-pidgeon   from llamaindex/
-#   zurchin-python-v0.0.1     zurchin (placeholders that claim the names) from placeholders/zurchin/
-#   zurchin-langchain-v0.0.1  langchain-zurchin from placeholders/langchain-zurchin/
-#   zurchin-llamaindex-v0.0.1 llama-index-tools-zurchin from placeholders/llama-index-tools-zurchin/
+#
+# Until then, `zurchin-python-v*`, `zurchin-langchain-v*` and
+# `zurchin-llamaindex-v*` are the 0.0.1 placeholders that claimed those names,
+# from placeholders/<name>/.
+#
+# After it, `zurchin-python-v*`, `zurchin-langchain-v*` and
+# `zurchin-llamaindex-v*` publish zurchin, langchain-zurchin and
+# llama-index-tools-zurchin from those same places, and the old prefixes the
+# last Pidgeon releases, which re-export them, from pidgeon/<prefix>/.
 #
 # The release job in the private repository (`scripts/release.ts`) cuts the
 # tags after the sync that put this tree here succeeded.
@@ -23,22 +31,18 @@ name: Publish
 on:
   push:
     tags:
-      [
-        'python-v*',
-        'langchain-v*',
-        'llamaindex-v*',
-        'zurchin-python-v*',
-        'zurchin-langchain-v*',
-        'zurchin-llamaindex-v*',
-      ]
+      - 'python-v*'
+      - 'langchain-v*'
+      - 'llamaindex-v*'
+      - 'zurchin-python-v*'
+      - 'zurchin-langchain-v*'
+      - 'zurchin-llamaindex-v*'
   workflow_dispatch:
     inputs:
       package:
-        description: Which project to publish
-        type: choice
-        options:
-          [python, langchain, llamaindex, zurchin-python, zurchin-langchain, zurchin-llamaindex]
-        default: python
+        description: Which project to publish, by its tag prefix in release.json (python, zurchin-python, …)
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -63,15 +67,11 @@ jobs:
           PACKAGE: ${{ inputs.package }}
         run: |
           key="${PACKAGE:-${GITHUB_REF_NAME%%-v*}}"
-          case "$key" in
-            python) dir=. ;;
-            langchain) dir=langchain ;;
-            llamaindex) dir=llamaindex ;;
-            zurchin-python) dir=placeholders/zurchin ;;
-            zurchin-langchain) dir=placeholders/langchain-zurchin ;;
-            zurchin-llamaindex) dir=placeholders/llama-index-tools-zurchin ;;
-            *) echo "No project for $key." >&2; exit 1 ;;
-          esac
+          dir=$(jq -r --arg k "$key" '.[$k].dir // empty' release.json)
+          if [ -z "$dir" ]; then
+            echo "release.json has no project for $key." >&2
+            exit 1
+          fi
           echo "key=$key" >> "$GITHUB_OUTPUT"
           echo "dir=$dir" >> "$GITHUB_OUTPUT"
 
@@ -88,7 +88,7 @@ jobs:
             exit 1
           fi
 
-      # A placeholder has no tests.
+      # The last Pidgeon releases only re-export, and have no tests of their own.
       - name: Test
         if: hashFiles(format('{0}/tests/**', steps.project.outputs.dir)) != ''
         run: uv run --directory "${{ steps.project.outputs.dir }}" pytest

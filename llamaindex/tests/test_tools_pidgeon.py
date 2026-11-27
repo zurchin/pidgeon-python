@@ -9,9 +9,9 @@ from typing import Any
 import httpx
 import pytest
 from llama_index.core.tools.tool_spec.base import BaseToolSpec
-from pidgeon import Pidgeon
+from zurchin import DEFAULT_BASE_URL, Pidgeon
 
-from llama_index.tools.pidgeon import WRITES, PidgeonToolSpec
+from llama_index.tools.zurchin import WRITES, PidgeonToolSpec
 
 ID = "0b5d1c1e-6a3f-4c55-9a8e-1f2d3c4b5a69"
 INBOX = "7f1c2d3e-0000-4000-8000-000000000001"
@@ -185,4 +185,4 @@ def test_a_key_is_needed(monkeypatch):
     with pytest.raises(ValueError, match="PIDGEON_API_KEY"):
         PidgeonToolSpec()
     monkeypatch.setenv("PIDGEON_API_KEY", "pgn_test")
-    assert PidgeonToolSpec().client.base_url == "https://pidgeon.ai"
+    assert PidgeonToolSpec().client.base_url == DEFAULT_BASE_URL

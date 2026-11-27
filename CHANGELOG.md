@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.16.0
+
+- Pidgeon is now Zurchin: this version is published as `zurchin` (`import zurchin`), and the last
+  `pidgeon` (2.16.0) depends on it, re-exports it and warns once.
+- The default host is `https://zurchin.com`. pidgeon.ai keeps answering the API for six months.
+- The source repository is `zurchin/pidgeon-python`.
+
+## 2.15.0
+
+- Pidgeon is becoming Zurchin, and settings answer to both names: `agent_from_env()` reads
+  `ZURCHIN_AGENT_KEY` and `ZURCHIN_DIRECTORY` first, then the `PIDGEON_` ones.
+  `env_setting(name)` reads any setting that way.
+- `Zurchin` and `ZurchinError` are `Pidgeon` and `PidgeonError` under the new name.
+- `auth.DEFAULT_ISSUER` is `DEFAULT_BASE_URL`, still `https://pidgeon.ai`.
+
 ## 2.14.0
 
 - `client.keys.deliver_to_vercel(name, vercel_project_id=, env_name=, targets=)`: make a

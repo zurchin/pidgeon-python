@@ -3,8 +3,8 @@ import base64
 import pytest
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
-import pidgeon
-from pidgeon import (
+import zurchin as pidgeon
+from zurchin import (
     generate_agent_key,
     is_public_jwk,
     key_id_of,
@@ -210,8 +210,8 @@ class TestVerifying:
 
     def test_accepts_the_dictionary_form_of_signature_agent(self):
         # The working group's form: Signature-Agent: sig1="https://…", covered by key.
-        from pidgeon import _sf
-        from pidgeon.credential import _signature_base, _target
+        from zurchin import _sf
+        from zurchin.credential import _signature_base, _target
 
         key = generate_agent_key()
         inner = _sf.InnerList(
@@ -235,8 +235,8 @@ class TestVerifying:
         # and a proxy may add its own signature beside the agent's (RFC 9421 §4.3).
         from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
-        from pidgeon import _sf
-        from pidgeon.credential import _signature_base, _target
+        from zurchin import _sf
+        from zurchin.credential import _signature_base, _target
 
         key = generate_agent_key()
         d = base64.urlsafe_b64decode(key.private_jwk["d"] + "=")
@@ -261,4 +261,4 @@ class TestVerifying:
 
 
 def test_version():
-    assert pidgeon.__version__ == "2.14.0"
+    assert pidgeon.__version__ == "2.16.0"

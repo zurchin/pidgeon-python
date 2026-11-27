@@ -8,7 +8,7 @@ Version 2 is for the new Pidgeon. Code written for 1.x (the old email API at
 `/api/v1`) keeps working on 1.68.0 until that API is retired.
 
 ```sh
-pip install pidgeon
+pip install zurchin
 ```
 
 Python 3.10 or later. Depends on `cryptography` and `httpx`.
@@ -19,7 +19,7 @@ Everything Email does is under `pidgeon.email`; each call answers the API's
 JSON as a `dict`. Create an inbox, send, and wait for the reply:
 
 ```python
-from pidgeon import Pidgeon
+from zurchin import Pidgeon
 
 pidgeon = Pidgeon(api_key="pgn_…")
 inbox = pidgeon.email.inboxes.create("bookings")  # bookings@pidgeon.email
@@ -100,7 +100,7 @@ Your agent's page on pidgeon.ai gives you `PIDGEON_AGENT_KEY` and
 `PIDGEON_DIRECTORY`. Then every request you send through the client is signed:
 
 ```python
-from pidgeon import agent_from_env
+from zurchin import agent_from_env
 
 with agent_from_env().client() as http:
     http.post("https://shop.example/signup", json={"email": "agent@example.com"})
@@ -109,7 +109,7 @@ with agent_from_env().client() as http:
 Or with a key you hold yourself:
 
 ```python
-from pidgeon import signed_client, sign_request
+from zurchin import signed_client, sign_request
 
 http = signed_client(private_jwk, "https://acme.agents.pidgeon.ai")
 
@@ -139,8 +139,8 @@ An agent signs in with no person present, and sends its ID token with every
 request it signs:
 
 ```python
-from pidgeon import signed_client
-from pidgeon.auth import sign_in_as_agent
+from zurchin import signed_client
+from zurchin.auth import sign_in_as_agent
 
 session = sign_in_as_agent("site_…", key.private_jwk, "https://acme.agents.pidgeon.ai")
 shop = signed_client(key.private_jwk, "https://acme.agents.pidgeon.ai",
@@ -151,7 +151,7 @@ Your site accepts the request only when it is signed with the key the token
 names, so a copied token is useless on its own:
 
 ```python
-from pidgeon.auth import verify_agent_sign_in, SignInError
+from zurchin.auth import verify_agent_sign_in, SignInError
 
 claims = verify_agent_sign_in(request.method, request.url, request.headers, "site_…")
 claims["sub"], claims["agent"], claims["account"], claims["reputation"]
@@ -161,7 +161,7 @@ For an MCP server whose authorization server trusts Pidgeon, the agent asks
 for an ID-JAG and presents it there as a JWT bearer grant:
 
 ```python
-from pidgeon.auth import request_id_jag
+from zurchin.auth import request_id_jag
 
 id_jag = request_id_jag("https://auth.example.com", "https://agent.example.com/oauth/client.json",
                         key.private_jwk, "https://acme.agents.pidgeon.ai",

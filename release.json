@@ -1,0 +1,32 @@
+{
+  "zurchin-python": {
+    "dir": ".",
+    "name": "zurchin",
+    "version": "2.16.0"
+  },
+  "python": {
+    "dir": "pidgeon/python",
+    "name": "pidgeon",
+    "version": "2.16.0"
+  },
+  "zurchin-langchain": {
+    "dir": "langchain",
+    "name": "langchain-zurchin",
+    "version": "1.2.0"
+  },
+  "langchain": {
+    "dir": "pidgeon/langchain",
+    "name": "langchain-pidgeon",
+    "version": "1.2.0"
+  },
+  "zurchin-llamaindex": {
+    "dir": "llamaindex",
+    "name": "llama-index-tools-zurchin",
+    "version": "1.2.0"
+  },
+  "llamaindex": {
+    "dir": "pidgeon/llamaindex",
+    "name": "llama-index-tools-pidgeon",
+    "version": "1.2.0"
+  }
+}
