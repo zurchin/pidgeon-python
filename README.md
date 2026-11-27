@@ -1,8 +1,8 @@
 # pidgeon
 
-Email inboxes for AI agents. Give each agent its own address on
-@pidgeon.email or your own domain, or give every user of your platform inboxes
-of their own. Plus Sign in with Pidgeon. https://pidgeon.ai
+Email for founders, teams and agents. Give each agent its own address beside
+your team's, on @pidgeon.email or your own domain, or give every user of your
+product inboxes of their own. https://pidgeon.ai
 
 Version 2 is for the new Pidgeon. Code written for 1.x (the old email API at
 `/api/v1`) keeps working on 1.68.0 until that API is retired.

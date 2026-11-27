@@ -27,7 +27,8 @@ DEFAULT_BASE_URL = "https://pidgeon.ai"
 
 Band = Literal["unverified", "new", "good", "flagged", "suspended"]
 ReportCategory = Literal["fraud", "abuse", "scraping", "spam", "fake_signups", "other"]
-InboxKind = Literal["agent", "events"]
+InboxKind = Literal["agent", "person", "shared", "events"]
+MemberLevel = Literal["read", "draft", "send"]
 Body = Literal["original", "clean"]
 Folder = Literal["inbox", "archive", "spam", "trash"]
 ThreadStatus = Literal["open", "waiting", "resolved", "human_review"]
@@ -107,8 +108,8 @@ def _seg(value: str) -> str:
 
 class Pidgeon:
     """
-    The client for Pidgeon's API: email inboxes for AI agents, pods, agents
-    and Sign in with Pidgeon. Keep the API key on a server.
+    The client for Pidgeon's API: email for founders, teams and agents, with
+    inboxes, pods and agents. Keep the API key on a server.
 
     ``api_key`` is an API key (``pgn_…``) or an OAuth access token. ``client``
     is an optional ``httpx.Client`` to send through (for proxies, timeouts or
@@ -378,20 +379,71 @@ class _Inboxes(_Group):
         agent_id: Optional[str] = None,
         pod_id: Optional[str] = None,
         domain: Optional[str] = None,
+        access: Optional[Literal["team", "agent"]] = None,
     ) -> Json:
         """
         ``name`` is the part before the @; ``domain`` one of the account's
         mail domains (left out, the account's address on Pidgeon). Optionally
         link it to an agent identity with ``agent_id``: its mail is then signed
-        as that agent.
+        as that agent. ``access`` is who reads it: ``team`` (the default) or
+        ``agent`` (this key, and the people added to supervise it).
         """
         return self._c.request(
             "POST",
             "/v1/email/inboxes",
             _drop_none(
                 {"name": name, "kind": kind, "display_name": display_name,
-                 "agent_id": agent_id, "pod_id": pod_id, "domain": domain}
+                 "agent_id": agent_id, "pod_id": pod_id, "domain": domain,
+                 "access": access}
             ),
+        )
+
+    def members(self, inbox_id: str) -> Json:
+        """Who reads the inbox: its ``access`` (``just_me``, ``some``, ``team``,
+        ``agent``) and its people and keys, each key at its level."""
+        return self._c.request("GET", f"/v1/email/inboxes/{_seg(inbox_id)}/members")
+
+    def add_member(
+        self,
+        inbox_id: str,
+        *,
+        key_id: Optional[str] = None,
+        level: Optional[MemberLevel] = None,
+        user_id: Optional[str] = None,
+    ) -> Json:
+        """Add a key (or a connected app) at ``level``, or a person of the team
+        with ``user_id`` (always ``send``). ``draft`` waits for a person. Needs ``admin``."""
+        return self._c.request(
+            "POST",
+            f"/v1/email/inboxes/{_seg(inbox_id)}/members",
+            _drop_none({"key_id": key_id, "level": level, "user_id": user_id}),
+        )
+
+    def update_member(self, inbox_id: str, member_id: str, level: MemberLevel) -> Json:
+        """Change the level a key was added at. Needs ``admin``."""
+        return self._c.request(
+            "PATCH",
+            f"/v1/email/inboxes/{_seg(inbox_id)}/members/{_seg(member_id)}",
+            {"level": level},
+        )
+
+    def remove_member(self, inbox_id: str, member_id: str) -> None:
+        """Take a key or a person off the inbox. Needs ``admin``."""
+        self._c.request("DELETE", f"/v1/email/inboxes/{_seg(inbox_id)}/members/{_seg(member_id)}")
+
+    def set_access(
+        self,
+        inbox_id: str,
+        access: Literal["team", "some", "agent"],
+        people: Optional[_Strings] = None,
+    ) -> Json:
+        """Choose who reads the inbox: ``team``, ``some`` (``people``) or ``agent``
+        (its keys, and ``people`` supervising). Just me is a person's own choice,
+        made in Pidgeon. Needs ``admin``."""
+        return self._c.request(
+            "PUT",
+            f"/v1/email/inboxes/{_seg(inbox_id)}/access",
+            _drop_none({"access": access, "people": list(people) if people is not None else None}),
         )
 
     def update(self, inbox_id: str, *, hold_suspicious: Literal[True] = True) -> Json:
@@ -708,6 +760,34 @@ class _Keys(_Group):
     ) -> Json:
         """Answers ``key`` once. Never stronger than the key making it; a test key makes test keys."""
         body: dict[str, Any] = {"name": name}
+        if access is not None:
+            body["access"] = access
+        if pod_id is not None:
+            body["pod_id"] = pod_id
+        if test is not None:
+            body["test"] = test
+        return self._c.request("POST", "/v1/keys", body)
+
+    def deliver_to_vercel(
+        self,
+        name: str,
+        *,
+        vercel_project_id: str,
+        env_name: str,
+        targets: Optional[_Strings] = None,
+        access: Optional[str] = None,
+        pod_id: Optional[str] = None,
+        test: Optional[bool] = None,
+    ) -> Json:
+        """Make a key and put it straight on a Vercel project as a sensitive variable.
+
+        Goes through the account's Vercel installation; the answer never holds the key,
+        only ``delivered_to``. ``targets``: production and preview when left out.
+        """
+        deliver_to: dict[str, Any] = {"vercel_project_id": vercel_project_id, "env_name": env_name}
+        if targets is not None:
+            deliver_to["targets"] = list(targets)
+        body: dict[str, Any] = {"name": name, "deliver_to": deliver_to}
         if access is not None:
             body["access"] = access
         if pod_id is not None:

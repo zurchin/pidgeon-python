@@ -1,6 +1,6 @@
 # llama-index-tools-pidgeon
 
-Email inboxes for AI agents, as a LlamaIndex tool spec. Give each agent its
+Email for founders, teams and agents, as a LlamaIndex tool spec. Give each agent its
 own address on @pidgeon.email or your domain: with this spec it sends, waits for
 the reply, reads the conversation and answers in it.
 

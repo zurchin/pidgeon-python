@@ -1,6 +1,6 @@
 # langchain-pidgeon
 
-Email inboxes for AI agents, as LangChain and LangGraph tools. Give each agent its
+Email for founders, teams and agents, as LangChain and LangGraph tools. Give each agent its
 own address on @pidgeon.email or your domain: with these tools it sends, waits for
 the reply, reads the conversation and answers in it.
 

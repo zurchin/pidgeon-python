@@ -1,13 +1,13 @@
 [project]
 name = "pidgeon"
-version = "2.13.0"
-description = "Pidgeon's Python SDK. Email inboxes for AI agents: give each agent its own address on @pidgeon.email or your domain, or white-label inboxes for every user of your platform. Plus Sign in with Pidgeon."
+version = "2.14.0"
+description = "Pidgeon's Python SDK. Email for founders, teams and agents: inboxes for your AI agents beside your team's, on @pidgeon.email or your own domains, with threads, webhooks and calendars."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
 authors = [{ name = "Pidgeon" }]
-keywords = ["email", "inbox", "ai-agents", "agent-email", "multi-tenant", "white-label", "email-api", "openid-connect"]
+keywords = ["email", "inbox", "ai-agents", "agent-email", "team-inbox", "unified-inbox", "email-api", "openid-connect"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Operating System :: OS Independent",

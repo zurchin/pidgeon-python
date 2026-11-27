@@ -1,5 +1,5 @@
 """
-Pidgeon's Python SDK: email inboxes for AI agents.
+Pidgeon's Python SDK: email for founders, teams and agents.
 
 ``Pidgeon(api_key).email`` is Email: inboxes on @pidgeon.email or your own
 domain, messages, waiting for mail, threads, labels, contacts, attachments,
@@ -41,7 +41,7 @@ from .credential import (
     verify_agent_request,
 )
 
-__version__ = "2.13.0"
+__version__ = "2.14.0"
 
 from .webhooks import sign_webhook, verify_webhook
 

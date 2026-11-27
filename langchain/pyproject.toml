@@ -1,7 +1,7 @@
 [project]
 name = "langchain-pidgeon"
 version = "1.0.1"
-description = "Email inboxes for AI agents, as LangChain tools: send, wait for the reply and answer in the thread, on @pidgeon.email or your domain."
+description = "Pidgeon as LangChain tools. Email for founders, teams and agents: send, wait for the reply and answer in the thread, on @pidgeon.email or your domain."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]

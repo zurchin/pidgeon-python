@@ -1,7 +1,7 @@
 [project]
 name = "llama-index-tools-pidgeon"
 version = "1.0.1"
-description = "Email inboxes for AI agents, as a LlamaIndex tool spec: send, wait for the reply and answer in the thread, on @pidgeon.email or your domain."
+description = "Pidgeon as a LlamaIndex tool spec. Email for founders, teams and agents: send, wait for the reply and answer in the thread, on @pidgeon.email or your domain."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]

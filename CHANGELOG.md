@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.14.0
+
+- `client.keys.deliver_to_vercel(name, vercel_project_id=, env_name=, targets=)`: make a
+  key and have Pidgeon put it straight on a Vercel project as a sensitive variable,
+  through the account's Vercel installation (`POST /v1/keys`, `deliver_to`). The answer
+  never holds the key, only `delivered_to`. Needs an `admin` key of the whole account.
+
 ## 2.13.0
 
 - `client.inboxes.set_agent(inbox_id, agent_id)`: link an existing inbox to an agent
