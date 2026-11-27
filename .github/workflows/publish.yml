@@ -5,7 +5,8 @@ name: Publish
 #   python-v2.0.0       pidgeon                     from the root
 #   langchain-v1.0.0    langchain-pidgeon           from langchain/
 #   llamaindex-v1.0.0   llama-index-tools-pidgeon   from llamaindex/
-#   zurchin-python-v0.0.1  zurchin (a placeholder that claims the name) from placeholders/zurchin/
+#   zurchin-python-v0.0.1     zurchin (placeholders that claim the names) from placeholders/zurchin/
+#   zurchin-langchain-v0.0.1  langchain-zurchin from placeholders/langchain-zurchin/
 #
 # The release job in the private repository (`scripts/release.ts`) cuts the
 # tags after the sync that put this tree here succeeded.
@@ -20,13 +21,14 @@ name: Publish
 # already has is skipped.
 on:
   push:
-    tags: ['python-v*', 'langchain-v*', 'llamaindex-v*', 'zurchin-python-v*']
+    tags:
+      ['python-v*', 'langchain-v*', 'llamaindex-v*', 'zurchin-python-v*', 'zurchin-langchain-v*']
   workflow_dispatch:
     inputs:
       package:
         description: Which project to publish
         type: choice
-        options: [python, langchain, llamaindex, zurchin-python]
+        options: [python, langchain, llamaindex, zurchin-python, zurchin-langchain]
         default: python
 
 permissions:
@@ -57,6 +59,7 @@ jobs:
             langchain) dir=langchain ;;
             llamaindex) dir=llamaindex ;;
             zurchin-python) dir=placeholders/zurchin ;;
+            zurchin-langchain) dir=placeholders/langchain-zurchin ;;
             *) echo "No project for $key." >&2; exit 1 ;;
           esac
           echo "key=$key" >> "$GITHUB_OUTPUT"
