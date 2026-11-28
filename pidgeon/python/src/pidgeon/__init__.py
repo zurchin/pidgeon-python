@@ -16,5 +16,5 @@ for _module in _pkgutil.iter_modules(_zurchin.__path__):
         f"zurchin.{_module.name}"
     )
 
-__version__ = getattr(_zurchin, "__version__", "2.16.0")
+__version__ = getattr(_zurchin, "__version__", "2.16.1")
 __all__ = getattr(_zurchin, "__all__", [])

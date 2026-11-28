@@ -11,7 +11,7 @@ from llama_index.core.tools.tool_spec.base import BaseToolSpec
 
 from zurchin import DEFAULT_BASE_URL, Pidgeon, PidgeonError
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 Body = Literal["clean", "original"]
 

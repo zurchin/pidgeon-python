@@ -1,12 +1,12 @@
 [project]
 name = "zurchin"
-version = "2.16.0"
-description = "Pidgeon's Python SDK. Email for founders, teams and agents: inboxes for your AI agents beside your team's, on @pidgeon.email or your own domains, with threads, webhooks and calendars."
+version = "2.16.1"
+description = "Zurchin's Python SDK. Email for founders, teams and agents: inboxes for your AI agents beside your team's, on @zurchin.email or your own domains, with threads, webhooks and calendars."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
-authors = [{ name = "Pidgeon" }]
+authors = [{ name = "Zurchin" }]
 keywords = ["email", "inbox", "ai-agents", "agent-email", "team-inbox", "unified-inbox", "email-api", "openid-connect"]
 classifiers = [
   "Programming Language :: Python :: 3",

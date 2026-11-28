@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- The description and README say Zurchin, zurchin.com and @zurchin.email, not Pidgeon. No code changed.
+
 ## 1.2.0
 
 - Pidgeon is now Zurchin: this version is published as `langchain-zurchin` (`import langchain_zurchin`), and the last

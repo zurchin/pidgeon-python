@@ -1,6 +1,6 @@
 # pidgeon
 
-**Now [`zurchin`](https://pypi.org/project/zurchin/).** Pidgeon is now Zurchin. This last release of `pidgeon` only re-exports `zurchin` 2.16.0 and says so once when it loads:
+**Now [`zurchin`](https://pypi.org/project/zurchin/).** Pidgeon is now Zurchin. This last release of `pidgeon` only re-exports `zurchin` 2.16.1 and says so once when it loads:
 
 ```
 pip install zurchin

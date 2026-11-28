@@ -1,12 +1,12 @@
 [project]
 name = "llama-index-tools-pidgeon"
-version = "1.2.0"
+version = "1.2.1"
 description = "Now llama-index-tools-zurchin: Pidgeon is now Zurchin. This last release re-exports it."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 requires-python = ">=3.11"
-dependencies = ["llama-index-tools-zurchin==1.2.0"]
+dependencies = ["llama-index-tools-zurchin==1.2.1"]
 
 [project.urls]
 Homepage = "https://pypi.org/project/llama-index-tools-zurchin/"

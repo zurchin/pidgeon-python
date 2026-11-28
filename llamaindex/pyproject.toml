@@ -1,12 +1,12 @@
 [project]
 name = "llama-index-tools-zurchin"
-version = "1.2.0"
-description = "Pidgeon as a LlamaIndex tool spec. Email for founders, teams and agents: send, wait for the reply and answer in the thread, on @pidgeon.email or your domain."
+version = "1.2.1"
+description = "Zurchin as a LlamaIndex tool spec. Email for founders, teams and agents: send, wait for the reply and answer in the thread, on @zurchin.email or your domain."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 requires-python = ">=3.11"
-authors = [{ name = "Pidgeon" }]
+authors = [{ name = "Zurchin" }]
 keywords = ["email", "inbox", "ai-agents", "agent-email", "llama-index", "pidgeon"]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -14,7 +14,7 @@ classifiers = [
   "Topic :: Communications :: Email",
   "Typing :: Typed",
 ]
-dependencies = ["zurchin>=2.16.0,<3", "llama-index-core>=0.13.0,<0.15"]
+dependencies = ["zurchin>=2.16.1,<3", "llama-index-core>=0.13.0,<0.15"]
 
 [project.urls]
 Homepage = "https://zurchin.com"

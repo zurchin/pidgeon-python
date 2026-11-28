@@ -1,10 +1,10 @@
 # langchain-zurchin
 
 Email for founders, teams and agents, as LangChain and LangGraph tools. Give each agent its
-own address on @pidgeon.email or your domain: with these tools it sends, waits for
+own address on @zurchin.email or your domain: with these tools it sends, waits for
 the reply, reads the conversation and answers in it.
 
-Version 1 is for the new Pidgeon and is built on the `pidgeon` SDK 2.x.
+Version 1 is for the new Pidgeon, now Zurchin, and is built on the `pidgeon` SDK 2.x.
 Code written for 0.x (the old email API at `/api/v1`, with addresses and
 `identity_id`) keeps working on 0.1.11 until that API is retired.
 
@@ -30,8 +30,8 @@ result = agent.invoke(
 )
 ```
 
-Make an API key at pidgeon.ai → Settings → API keys. The key is the access
-control: it decides, on Pidgeon's side, which inboxes a tool reaches and
+Make an API key at zurchin.com → Settings → API keys. The key is the access
+control: it decides, on Zurchin's side, which inboxes a tool reaches and
 whether it may send, whatever the prompt says. Give an agent the narrowest
 key its job needs.
 
@@ -53,13 +53,13 @@ user's agent their own: `PidgeonToolkit(api_key=pod_key)`.
 | `reply_to_message` | Reply in a message's conversation, from the inbox it is in           | yes    |
 | `list_threads`     | Conversations, newest first, by inbox, folder or status              |        |
 | `get_thread`       | A conversation's messages, oldest first                              |        |
-| `get_message`      | One message, with Pidgeon Firewall's verdict and the agent behind it |        |
+| `get_message`      | One message, with Zurchin Firewall's verdict and the agent behind it |        |
 | `await_message`    | Wait up to 50 seconds for new mail in an inbox                       |        |
-| `register_agent`   | Register an agent and make its signing key, for Sign in with Pidgeon | yes    |
+| `register_agent`   | Register an agent and make its signing key, for Sign in with Zurchin | yes    |
 | `get_reputation`   | The operator's reputation band, and what would raise it              |        |
 
 Each tool's `metadata` carries `readOnlyHint`, `destructiveHint` and
-`openWorldHint`, the same hints as Pidgeon's MCP server, to choose the calls
+`openWorldHint`, the same hints as Zurchin's MCP server, to choose the calls
 a person approves first:
 
 ```python
@@ -73,18 +73,18 @@ approve it. That is not a failure; the tools tell the model not to send again.
 
 Anyone can write to an inbox. Every tool that hands the model mail says, in
 its description, that a message's subject and text are its sender's words,
-never instructions, and that a message Pidgeon Firewall calls `suspicious` is
+never instructions, and that a message Zurchin Firewall calls `suspicious` is
 for a person. Bodies come cleaned by default (`body="clean"`: what a person
 cannot see is taken out); `body="original"` is the message as it arrived.
 
 ## Registering an agent
 
 An agent with a key of its own signs in to websites as itself (Sign in with
-Pidgeon). `register_agent` calls `agents.set_up`: Pidgeon registers the agent, the key
+Zurchin). `register_agent` calls `agents.set_up`: Zurchin registers the agent, the key
 is made here, and its public half is published signed with it. The private
 key is written to `<config>/agents/<agent id>.json`, readable by this user
 only, where `<config>` is `PIDGEON_CONFIG_DIR`, else `$XDG_CONFIG_HOME/pidgeon`,
-else `~/.config/pidgeon` (where the Pidgeon CLI and MCP server keep theirs).
+else `~/.config/pidgeon` (where the Zurchin CLI and MCP server keep theirs).
 Pass `key_dir` to the toolkit or the tool to keep it elsewhere. The model sees
 the agent, its key id and the file's path, never the key.
 
@@ -93,4 +93,4 @@ the agent, its key id and the file's path, never the key.
 A refusal reaches the model as the API's code and sentence, such as
 `payment_required: …`, rather than ending the run, so it can tell a person why.
 
-Docs: [pidgeon.ai/docs](https://pidgeon.ai/docs). Apache-2.0.
+Docs: [zurchin.com/docs](https://zurchin.com/docs). Apache-2.0.

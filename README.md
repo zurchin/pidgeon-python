@@ -1,10 +1,10 @@
 # pidgeon
 
 Email for founders, teams and agents. Give each agent its own address beside
-your team's, on @pidgeon.email or your own domain, or give every user of your
-product inboxes of their own. https://pidgeon.ai
+your team's, on @zurchin.email or your own domain, or give every user of your
+product inboxes of their own. https://zurchin.com
 
-Version 2 is for the new Pidgeon. Code written for 1.x (the old email API at
+Version 2 is for the new Pidgeon, now Zurchin. Code written for 1.x (the old email API at
 `/api/v1`) keeps working on 1.68.0 until that API is retired.
 
 ```sh
@@ -61,7 +61,7 @@ sends only the fields you pass; `None` clears one that can be cleared
 
 `pidgeon.webhooks` (`list`, `create`, `remove`) adds endpoints for the
 account's events; check their signatures with `verify_webhook`. Also
-`pidgeon.sites` and `pidgeon.mandates` (Sign in with Pidgeon), `pidgeon.events`,
+`pidgeon.sites` and `pidgeon.mandates` (Sign in with Zurchin), `pidgeon.events`,
 `pidgeon.pods`, and `pidgeon.request(method, path, body)` for any `/v1` call.
 
 ## For platforms
@@ -76,7 +76,7 @@ inbox = pidgeon.email.inboxes.create("support", pod_id=pod["id"], domain="acme.c
 key = pidgeon.keys.create("Acme", access="send", pod_id=pod["id"])["key"]
 ```
 
-## Sign in with Pidgeon
+## Sign in with Zurchin
 
 Agents sign in to websites as themselves, with a key of their own.
 
@@ -84,7 +84,7 @@ Agents sign in to websites as themselves, with a key of their own.
 
 Set an agent up in one call: it is registered, its key is made here, and only
 the public half is published, in a request signed with the key itself (which
-is how Pidgeon knows you hold it).
+is how Zurchin knows you hold it).
 
 ```python
 made = pidgeon.agents.set_up("Booking agent", "Books tables.")
@@ -96,7 +96,7 @@ Or by hand: `generate_agent_key()` (`key.kid`, `key.public_jwk`,
 
 ### Sign its requests
 
-Your agent's page on pidgeon.ai gives you `PIDGEON_AGENT_KEY` and
+Your agent's page on zurchin.com gives you `PIDGEON_AGENT_KEY` and
 `PIDGEON_DIRECTORY`. Then every request you send through the client is signed:
 
 ```python
@@ -120,7 +120,7 @@ headers = sign_request("POST", "https://shop.example/signup", None,
 
 `AgentAuth(private_jwk, directory)` is the same signer as an `httpx.Auth`, for
 a client you already have, sync or async. A signature covers the host,
-method, path and query, carries a new nonce, and lasts a minute. Pidgeon
+method, path and query, carries a new nonce, and lasts a minute. Zurchin
 accepts a signature once, so sign again to retry; never resend old signature
 headers.
 
@@ -132,7 +132,7 @@ Register it with `pidgeon.sites.create(name, redirect_uris)`, and ask a person
 to let your agent act for them with `pidgeon.mandates.create(…)`.
 
 People sign in to your site with any OpenID Connect library: the issuer is
-`https://pidgeon.ai`, with the client id and secret you registered. Check an ID
+`https://zurchin.com`, with the client id and secret you registered. Check an ID
 token with `verify_id_token(id_token, client_id)`.
 
 An agent signs in with no person present, and sends its ID token with every
@@ -157,7 +157,7 @@ claims = verify_agent_sign_in(request.method, request.url, request.headers, "sit
 claims["sub"], claims["agent"], claims["account"], claims["reputation"]
 ```
 
-For an MCP server whose authorization server trusts Pidgeon, the agent asks
+For an MCP server whose authorization server trusts Zurchin, the agent asks
 for an ID-JAG and presents it there as a JWT bearer grant:
 
 ```python

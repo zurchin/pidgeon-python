@@ -1,6 +1,6 @@
 # langchain-pidgeon
 
-**Now [`langchain-zurchin`](https://pypi.org/project/langchain-zurchin/).** Pidgeon is now Zurchin. This last release of `langchain-pidgeon` only re-exports `langchain-zurchin` 1.2.0 and says so once when it loads:
+**Now [`langchain-zurchin`](https://pypi.org/project/langchain-zurchin/).** Pidgeon is now Zurchin. This last release of `langchain-pidgeon` only re-exports `langchain-zurchin` 1.2.1 and says so once when it loads:
 
 ```
 pip install langchain-zurchin
